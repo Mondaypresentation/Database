@@ -647,6 +647,42 @@ void SelectCharRecord(CharBPlusTree T,PageTable *&PT,BufferQue* &Buf,int ofset,c
 	}
 	return;
 }
+void DeleteCharRecord(CharBPlusTree T,PageTable *&PT,BufferQue* &Buf,int ofset)
+{
+	int Tno=T->tableno[ofset];
+	int Bno=T->blockno[ofset];
+	int	offset=T->offset[ofset];
+	PageNode *p1 = selectBuf_Block(Buf,Bno,Tno);
+	if(p1){//p1非空，即返回在缓冲区中可的块Bno 
+		printf("表%s块%d在缓冲区页中\n",TableList[Tno],Bno);
+		Block *c=p1->block;
+		printf("%s\n",c->Re[offset]);
+		c=Rec_OUT_Block(c,offset,Tno);
+		//————————————————- 
+		//ID=p1->BlockID;找到对应block b
+		//——————————————--  
+		
+		//printf("1\n"); 
+		
+		//从块b中删除记录
+		deleteKeyList(p1->page,offset);//更新页的key索引
+		/////////////////////////////////////////// 
+	}
+	else{
+		Page *p2 = selectPT_Block(PT,Bno);
+		if(p2){//p2非空，块存在但未在缓冲区 
+			Block *b=FIFO(PT,Buf,p2);
+			printf("%s\n",b->Re[offset]);
+			b=Rec_OUT_Block(b,offset,Tno);
+			//从块b中删除记录
+			
+			deleteKeyList(p2,offset);//更新页的key索引
+		}
+		else
+			printf("表%d中找不到块%d\n",Tno,Bno);
+	}
+	return;
+}
 CharBPlusTree search(CharBPlusTree T,char *key,int &offset)
 {   //printf("4\n");
 //	TravelCharTree(T);

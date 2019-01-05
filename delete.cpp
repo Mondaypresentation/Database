@@ -38,7 +38,7 @@ Page* checkPT_Key(PageTable *PT,char *key,int &offset,int TNo)//页表中是否有key
 	}
 	return NULL;
  }
-void deleteKeyList(Page *&p,char *key,int offset)//更新页的keylist,删除记录 
+void deleteKeyList(Page *&p,int offset)//更新页的keylist,删除记录 
 {
 	int i=offset;
 	for(i;i>0;i--)
@@ -108,7 +108,7 @@ void deleteRecord(PageTable *&PT,BufferQue* &Buf,char *key,int TNo)//从TNo表删除
 		//printf("1\n"); 
 		
 		//从块b中删除记录
-		deleteKeyList(p1->page,key,offset);//更新页的key索引
+		deleteKeyList(p1->page,offset);//更新页的key索引
 		//printf("2\n");
 		//BT = Remove(BT,atoi(key));
 		printf("删除记录成功\n");
@@ -122,7 +122,7 @@ void deleteRecord(PageTable *&PT,BufferQue* &Buf,char *key,int TNo)//从TNo表删除
 			b=Rec_OUT_Block(b,offset,TNo);
 			//从块b中删除记录
 			
-			deleteKeyList(p2,key,offset);//更新页的key索引
+			deleteKeyList(p2,offset);//更新页的key索引
 			//BT = Remove(BT,atoi(key));
 			printf("删除记录成功\n"); 
 		}

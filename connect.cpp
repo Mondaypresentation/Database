@@ -49,6 +49,7 @@ void KaConnect(int TNo1,int TNo2,BufferQue* &Buf1,PageTable *PT1,PageTable *PT2)
 	sprintf(tab2,"%.4d",TNo2);
 	R=recjoin(tab1,tab2);
 	strcpy(R->Head->tablenum,"9999");
+	int sum = 0;
 	while(P2)
 	{
 		if(strlen(P2->KeyList[MAX_OF_RECORD-1]) !=0)
@@ -58,18 +59,14 @@ void KaConnect(int TNo1,int TNo2,BufferQue* &Buf1,PageTable *PT1,PageTable *PT2)
 			{
 				if(strlen(P2->KeyList[t]) == 0)
 						break;
-				char s2[500];
-				sprintf(s2,"%.4d%s",TNo2,b->Re[t]);;
-				R2 = output(s2);
+				R2 = output(b->Re[t]);
 				PageNode* pn1 = Buf1->front->next;				
 				while(pn1){
 					for(int tmp = MAX_OF_RECORD-1;tmp>=0;tmp--){
 						if(strlen(pn1->page->KeyList[tmp]) == 0)
 							break;
-						char s1[500];
-						sprintf(s1,"%.4d%s",TNo1,pn1->block->Re[tmp]);
-						R1 = output(s1);
-						R = Recjoin(R1,R2,R);
+						R1 = output(pn1->block->Re[tmp]);
+						R = Recjoin(R1,R2,R,sum);
 						printf("%s\n",input(R)+8);
 					}
 					pn1 = pn1->next;
@@ -120,6 +117,7 @@ void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Bu
 		printf("%s   ",R->attribute[index]->name);
 	}
 	printf("\n");
+	int sum = 0;
 	while(P2)
 	{
 		if(strlen(P2->KeyList[MAX_OF_RECORD-1]) !=0)
@@ -129,9 +127,7 @@ void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Bu
 			{
 				if(strlen(P2->KeyList[t]) == 0)
 					break;
-				char s2[500];
-				sprintf(s2,"%.4d%s",TNo2,b->Re[t]);;
-				R2 = output(s2);
+				R2 = output(b->Re[t]);
 				if(Option == 1){
 					int ofset;
 					//printf("%s\n",R2->attribute[ANo2]->value);
@@ -163,18 +159,17 @@ void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Bu
 								
 							}							
 							PageNode* pn1 = connectBuf_Block(Buf1,T->blockno[i],TNo1);
-							char s1[500];
-							sprintf(s1,"%.4d%s",TNo1,pn1->block->Re[T->offset[i]]);
 							//printf("%d\n",i);
-							R1 = output(s1);
-							R = Recjoin(R1,R2,R);
+							R1 = output(pn1->block->Re[T->offset[i]]);
+							R = Recjoin(R1,R2,R,sum);
 							printf("%s\n",input(R)+8);
+							free(R1);
 							
 						//	printf("%s %d\n",T->Key[i],i);
 						}
 						i++;
 					}		
-				}
+				}/*
 				else if(Option == 0){
 					PageNode* pn1 = Buf1->front->next;				
 					while(pn1){
@@ -191,7 +186,7 @@ void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Bu
 						}
 						pn1 = pn1->next;
 					}
-				}	
+				}*/	
 					//b->Re[atoi(k)]
 			}
 			clearBuf(Buf2);
@@ -235,6 +230,7 @@ void ConnectTable2(int TNo1,int TNo2,int ANo1,int ANo2,BufferQue* &Buf1,PageTabl
 	sprintf(tab2,"%.4d",TNo2);
 	R=recjoin(tab1,tab2);
 	strcpy(R->Head->tablenum,"9999");
+	int sum = 0;
 	while(P2)
 	{
 		if(strlen(P2->KeyList[MAX_OF_RECORD-1]) !=0)
@@ -244,9 +240,7 @@ void ConnectTable2(int TNo1,int TNo2,int ANo1,int ANo2,BufferQue* &Buf1,PageTabl
 			{
 				if(strlen(P2->KeyList[t]) == 0)
 					break;
-				char s2[500];
-				sprintf(s2,"%.4d%s",TNo2,b->Re[t]);;
-				R2 = output(s2);
+				R2 = output(b->Re[t]);
 				int ofset;
 
 				CharBPlusTree T = search(CBT,R2->attribute[ANo2]->value,ofset);
@@ -280,7 +274,7 @@ void ConnectTable2(int TNo1,int TNo2,int ANo1,int ANo2,BufferQue* &Buf1,PageTabl
 							
 							if(strcmp(R1->attribute[ANo3]->value,R2->attribute[ANo4]->value)==0)//不满足第二个条件
 							{
-								R = Recjoin(R1,R2,R);
+								R = Recjoin(R1,R2,R,sum);
 								printf("%s\n",input(R)+8);
 							}
 							

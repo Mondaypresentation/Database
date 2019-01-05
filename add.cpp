@@ -80,6 +80,7 @@ Block* Rec_IN_Block(Block *b,char **value,int TNo) //块中添加记录
 		b->LastUsedRecord=b->FirstAvailableBlock; //最后一个被使用的块是此块
 		
         b->FirstAvailableBlock=b->FirstAvailableBlock-1;
+        free(a); 
         return b;
 }
 void addRecord(BPlusTree &BT,PageTable *&PT,BufferQue* &Buf,char *key,char** value,int TNo) //向TNo表中增加一条记录 

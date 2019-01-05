@@ -118,6 +118,11 @@ data		return DATA;
 		yylval.intval = atoi(yytext);
 		return NUMBER;
 	}
+	/* floatnumber */
+[1-9][0-9]*[.][0-9]+	{
+		yylval.strval = strdup(yytext);
+		return FLOATNUMBER;
+	}
 	
 	/* strings */
 '[^\n']*'	{

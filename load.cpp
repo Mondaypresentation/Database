@@ -118,6 +118,7 @@ char *input(Record *rec)//将记录转化为字符串
 			strcat(p,stop);			
 	}
 	//printf("%s\n",p);
+	free(stop);
 	return p;
 }
 Record *output(char *line)//将字符串形式的数组转化为Record 
@@ -128,7 +129,7 @@ Record *output(char *line)//将字符串形式的数组转化为Record
 	Record *outrec =SetRecord(Recinfo[atoi(filename)]->Head->attrubuteNum);
 //	printf("1\n");
 	int i,cal=8,test;
-	char *temp=(char*)malloc(255*sizeof(char));
+//	char *temp=(char*)malloc(255*sizeof(char));
 	for(i=0;i<Recinfo[atoi(filename)]->Head->attrubuteNum;i++)
 	{
 		strcpy(outrec->attribute[i]->name,Recinfo[atoi(filename)]->attribute[i]->name);
@@ -198,10 +199,9 @@ Record *recjoin(char *table1,char *table2)
 	}
 	return outrec;
 }
-Record *Recjoin(Record *rec1,Record *rec2,Record *rec12)
+Record *Recjoin(Record *rec1,Record *rec2,Record *rec12,int &sum)
 {
-	int sum=0,t=1;
-	sum=atoi(rec12->attribute[0]->value);
+	int t=1;
 	sum++;
 	char s[8];
 	sprintf(s,"%d",sum);

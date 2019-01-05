@@ -17,8 +17,8 @@ int Get_TNo(char *TName)//根据表名找到表号
 }
 int CREATE_TABLE(char *TName,int ANum,Record *R)
 {
-	if(access(TName,F_OK)==0)//存在文件夹，已有该表，创建失败 
-		return 2;
+//	if(access(TName,F_OK)==0)//存在文件夹，已有该表，创建失败 
+//		return 2;
 	mkdir(TName);
 	FILE *f1;
 	char s1[255];
@@ -121,8 +121,8 @@ char *REMOVE_BT(char *TName)
 //void REMOVE_BT()
 int DROP_TABLE(char *TName)
 {
-	if(access(TName,F_OK)==-1)//不存在存在文件夹，不存在该表，删除失败失败 
-		return 2;
+//	if(access(TName,F_OK)==-1)//不存在存在文件夹，不存在该表，删除失败失败 
+//		return 2;
 	int TNo = Get_TNo(TName);
 	//清空缓冲区
 	printf("清空缓冲区\n");
@@ -190,11 +190,11 @@ void DBExit()
 int CHECK_TABLE(char *TName)
 {
 	if(access(TName,F_OK) == -1){
-		printf("表%s不存在\n",TName);
+		//printf("表%s不存在\n",TName);
 		return 0;
 	}			
 	else{
-		printf("找到表%s\n",TName);
+		//printf("找到表%s\n",TName);
 		int TNo = Get_TNo(TName);
 		if(PTList[TNo] == NULL){
 			PTList[TNo] = ReadPTIndex(TNo);//页表读入 
@@ -205,7 +205,7 @@ int CHECK_TABLE(char *TName)
 }
 int LOAD_TABLE(char *TName,char *filename)
 {
-	CHECK_TABLE(TName);
+	//CHECK_TABLE(TName);
 	int TNo = Get_TNo(TName);
 	readFileData(BTList[TNo],PTList[TNo],Buf,filename,TNo);
 	return 0;
@@ -214,7 +214,7 @@ int INSERT_RECORD(char *TName,char fieldname[Max_Attribute_Num][20],int fienum,c
 {
   //  int slength = 0;
   	//printf("!!!!!!!\n");
-  	CHECK_TABLE(TName);
+  	//CHECK_TABLE(TName);
 	int TNo = Get_TNo(TName);
 	
 	if(fienum == 0){//插入整条记录 
@@ -278,10 +278,34 @@ int INSERT_RECORD(char *TName,char fieldname[Max_Attribute_Num][20],int fienum,c
 	printf("success to insert record!\n");
 	return 0;
  	
-}		
+}
+void delete_rec(char *TName,char *attr,char *val)
+{	
+	int TNo = Get_TNo(TName),offset=0,ANo;	
+	for(int i=0;i<Recinfo[TNo]->Head->attrubuteNum;i++)
+	{
+		if(strcmp(attr,Recinfo[TNo]->attribute[i]->name)==0)
+		{
+			ANo=i;
+			break;
+		}
+	}
+	while(true)
+	{
+	CharBPlusTree T = InitializeCharTree();
+	createCharTree(T,PTList[TNo],Buf,TNo,ANo);	
+	T=search(T,val,offset);
+	if(T==NULL)
+	{
+		break;
+	}
+	DeleteCharRecord(T,PTList[TNo],Buf,offset);
+	DestroyCharTree(T);
+	} 
+}
 void select_attr(char *TName,char attrname[Max_Attribute_Num][20],int sum,char *attr,char *op,char *val)
 {
-	CHECK_TABLE(TName);
+	//CHECK_TABLE(TName);
 	int TNo = Get_TNo(TName);
 //	printf("%s %s %s\n",attr,op,val);
 	SelectWithOneCondition(PTList[TNo],Buf,TNo,attr,op,val,attrname,sum);
@@ -289,7 +313,7 @@ void select_attr(char *TName,char attrname[Max_Attribute_Num][20],int sum,char *
 }
 void print_attr(char *TName,char attrname[Max_Attribute_Num][20],int sum)
 {
-	CHECK_TABLE(TName);
+	//CHECK_TABLE(TName);
 	int TNo = Get_TNo(TName);
 	char *projectionrecord;
     projectionrecord=(char *)malloc(255*sizeof(char));
@@ -331,7 +355,7 @@ void print_attr(char *TName,char attrname[Max_Attribute_Num][20],int sum)
 				if(strlen(P->KeyList[i])==0)
 					break;
 				//strcpy(projectionrecord,Project(b->Re[i],c));
-				//printf("%s\n",b->Re[i]);
+				//printf("%d\n",i);
 				Project(b->Re[i],c);
 				//printf("!!!!!!!!!2\n");
 				//printf("%s\n",projectionrecord);							
@@ -342,4 +366,29 @@ void print_attr(char *TName,char attrname[Max_Attribute_Num][20],int sum)
 		P = P->next;		
 	}	
 }
+int TABLE_SIZE(int TNo)
+{
+	Page *P = PTList[TNo]->next;
+	int Length = 0;
+	while(P){
+		if(P->CreateBlock == 1)
+		{
+			Length++;
+		}		
+		P = P->next;		
+	}
+	return Length;	
+} 
+int FIND_ANO(int TNo,char *Aname)
+{
+	int ANum = Recinfo[TNo]->Head->attrubuteNum;
+	int ANo = -1;
 
+	for(int i=0;i<ANum;i++){
+		if(strcmp(Aname,Recinfo[TNo]->attribute[i]->name) == 0){
+			ANo = i;
+			break;
+		}
+	}
+	return ANo;
+}

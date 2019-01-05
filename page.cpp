@@ -222,13 +222,13 @@ Block* FIFO(PageTable *&PT,BufferQue* &Buf,Page *&p_in){//»º³åÇø¶ÓÁÐÌí¼ÓÒ³,·µ»ØÒ
 		Buf->front->next = p_in;
 	}*/
 	if(Buf->length == Buf->BufferLength){//»º³åÇø¶ÓÁÐÒÑÂú 
-		printf("»º³åÇø¶ÓÁÐÒÑÂú\n");
-		printf("%d\n",Buf->front->next->PageID);
+		//printf("»º³åÇø¶ÓÁÐÒÑÂú\n");
+		//printf("%d\n",Buf->front->next->PageID);
 		Page *p_out = SearchPT(PT,Buf->front->next->PageID);//»º³åÇø¶ÓÊ×µÄÒ³ 		
 		
 		//ÌÔÌ­Ò³µ÷³ö»º³åÇø¶ÓÁÐ 
 		PageNode *pn = Buf->front->next;
-		printf("±í%sÒ³%dµ÷³ö»º³åÇø\n",TableList[pn->page->TableNo],pn->PageID); 
+		//printf("±í%sÒ³%dµ÷³ö»º³åÇø\n",TableList[pn->page->TableNo],pn->PageID); 
 		Buf->front->next = pn->next;
 		
 		Buf->length -=1; //»º³åÇø³¤¶È¼õ1 
@@ -257,7 +257,7 @@ Block* FIFO(PageTable *&PT,BufferQue* &Buf,Page *&p_in){//»º³åÇø¶ÓÁÐÌí¼ÓÒ³,·µ»ØÒ
 	PN->PageID = p_in->PageID;
 	//Ò³½ÚµãÐ´Èë»º³å¶ÓÁÐ
 	if(Buf->front == Buf->rear){
-		printf("»º³åÇøÎª¿Õ\n");
+		//printf("»º³åÇøÎª¿Õ\n");
 		
 		Buf->front->next = PN;
 
@@ -270,7 +270,7 @@ Block* FIFO(PageTable *&PT,BufferQue* &Buf,Page *&p_in){//»º³åÇø¶ÓÁÐÌí¼ÓÒ³,·µ»ØÒ
 		Buf->rear = PN;
 	}
 
-	printf("±í%sÒ³%dµ÷Èë»º³åÇø\n",TableList[p_in->TableNo],p_in->PageID);
+	//printf("±í%sÒ³%dµ÷Èë»º³åÇø\n",TableList[p_in->TableNo],p_in->PageID);
 	
 	UpdatePage(PT,p_in,1);	
 	Buf->length +=1;
@@ -315,7 +315,7 @@ void clearBuf(BufferQue* &Buf)//ÍË³öÊý¾Ý¿âÊ±£¬½«»º³åÇøÖÐµÄÈ«²¿Ò³Ð´ÈëÎÄ¼þ
 		Block *b=pn->block;
 		Block c=*b;
 		SaveBlock(c);
-		printf("±í%sÒ³%dµ÷Ð´ÈëÎÄ¼þ\n",TableList[c.TableNo],c.BlockNo);
+		//printf("±í%sÒ³%dµ÷Ð´ÈëÎÄ¼þ\n",TableList[c.TableNo],c.BlockNo);
 	 }
 	Buf =  InitBuffer();
 	Buf->BufferLength = l;

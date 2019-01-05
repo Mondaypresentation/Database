@@ -7,13 +7,15 @@
 #include<malloc.h>
 #include <string.h>
 
-char *Project(char *s,int a[])
+void Project(char *s,int a[])
 {   
 	//printf("%s\n",s);
 	Record *R;
+	//printf("!1");
 	R=InitRecord();
+	//printf("------------------------\n");
 	R=output(s);
-	//printf("11111"); 
+	//printf("!3\n"); 
 	//printf("%s\n",R->attribute[1]->value); 
 	char c[255];
 	char *d=" "; 
@@ -28,7 +30,9 @@ char *Project(char *s,int a[])
 		}	
 	}
 	printf("%s\n",c);
-	return c;
+	free(d); 
+	free(R);
+	return;
 }
 int *AddAttribute(int a[],int i)
 {

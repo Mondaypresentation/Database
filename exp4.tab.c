@@ -97,6 +97,7 @@ typedef struct ConDition{
 static int is_ares;//是否选择全部属性 是为1，不是为0
 
 static int tbcnt;//表数量
+char TABLE_LIST[MAX_OF_TABLE][20];
 
 static int is_uni;
 
@@ -113,6 +114,8 @@ static int fiecnt;//插入属性名数量
 char FIELD_LIST[Max_Attribute_Num][20];
 
 static char *op;//操作符
+
+
 /* used for order */
 static int orderby;//orderby顺序
 static int is_where;//是否有where
@@ -126,7 +129,7 @@ int type_No;
 
 
 /* Line 189 of yacc.c  */
-#line 130 "exp4.tab.c"
+#line 133 "exp4.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -156,49 +159,50 @@ int type_No;
      NAME = 258,
      STRING = 259,
      NUMBER = 260,
-     CHAR = 261,
-     VARCHAR = 262,
-     LONG = 263,
-     FLOAT = 264,
-     DOUBLE = 265,
-     COMPARISON = 266,
-     PATH = 267,
-     AND = 268,
-     SELECT = 269,
-     FROM = 270,
-     WHERE = 271,
-     ORDER = 272,
-     BY = 273,
-     ASC = 274,
-     DESC = 275,
-     ALL = 276,
-     UNIQUE = 277,
-     DISTINCT = 278,
-     CREATE = 279,
-     TABLE = 280,
-     DROP = 281,
-     LOAD = 282,
-     INSERT = 283,
-     INTO = 284,
-     VALUES = 285,
-     DELETE = 286,
-     CHARACTER = 287,
-     INTEGER = 288,
-     DATE = 289,
-     SHOW = 290,
-     TABLES = 291,
-     EXIT = 292,
-     DATA = 293,
-     HASH = 294,
-     BPT = 295,
-     HELP = 296,
-     ON = 297,
-     PRIMARY = 298,
-     KEY = 299,
-     UPDATE = 300,
-     SET = 301,
-     DESCRIBE = 302,
-     ADMIN = 303
+     FLOATNUMBER = 261,
+     CHAR = 262,
+     VARCHAR = 263,
+     LONG = 264,
+     FLOAT = 265,
+     DOUBLE = 266,
+     COMPARISON = 267,
+     PATH = 268,
+     AND = 269,
+     SELECT = 270,
+     FROM = 271,
+     WHERE = 272,
+     ORDER = 273,
+     BY = 274,
+     ASC = 275,
+     DESC = 276,
+     ALL = 277,
+     UNIQUE = 278,
+     DISTINCT = 279,
+     CREATE = 280,
+     TABLE = 281,
+     DROP = 282,
+     LOAD = 283,
+     INSERT = 284,
+     INTO = 285,
+     VALUES = 286,
+     DELETE = 287,
+     CHARACTER = 288,
+     INTEGER = 289,
+     DATE = 290,
+     SHOW = 291,
+     TABLES = 292,
+     EXIT = 293,
+     DATA = 294,
+     HASH = 295,
+     BPT = 296,
+     HELP = 297,
+     ON = 298,
+     PRIMARY = 299,
+     KEY = 300,
+     UPDATE = 301,
+     SET = 302,
+     DESCRIBE = 303,
+     ADMIN = 304
    };
 #endif
 
@@ -209,7 +213,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 56 "exp4.y"
+#line 59 "exp4.y"
 
 	int intval;
 	char *strval;
@@ -217,7 +221,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 221 "exp4.tab.c"
+#line 225 "exp4.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -229,7 +233,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 233 "exp4.tab.c"
+#line 237 "exp4.tab.c"
 
 #ifdef short
 # undef short
@@ -444,10 +448,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  27
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   95
+#define YYLAST   101
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  58
+#define YYNTOKENS  59
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  28
 /* YYNRULES -- Number of rules.  */
@@ -457,7 +461,7 @@ union yyalloc
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   303
+#define YYMAXUTOK   304
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -469,15 +473,15 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      54,    55,    16,    14,    56,    15,     2,    17,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    53,
+      55,    56,    17,    15,    57,    16,     2,    18,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    54,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,    57,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,    58,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -491,11 +495,11 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    18,
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       19,    20,    21,    22,    23,    24,    25,    26,    27,    28,
       29,    30,    31,    32,    33,    34,    35,    36,    37,    38,
       39,    40,    41,    42,    43,    44,    45,    46,    47,    48,
-      49,    50,    51,    52
+      49,    50,    51,    52,    53
 };
 
 #if YYDEBUG
@@ -515,38 +519,38 @@ static const yytype_uint8 yyprhs[] =
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      59,     0,    -1,    60,    -1,    41,    -1,    53,    -1,    64,
-      -1,    61,    -1,    62,    -1,    73,    -1,    69,    -1,    72,
-      -1,    30,    29,    65,    53,    -1,    31,    29,    65,    63,
-      53,    -1,    12,    -1,    28,    29,    65,    54,    66,    55,
-      53,    -1,     3,    -1,    67,    -1,    66,    56,    67,    -1,
-      83,    68,    -1,     6,    54,     5,    55,    -1,     7,    54,
-       5,    55,    -1,    37,    -1,     8,    -1,     9,    -1,    10,
-      -1,    38,    -1,    32,    33,    65,    34,    54,    70,    55,
-      53,    -1,    32,    33,    65,    54,    71,    55,    34,    54,
-      70,    55,    53,    -1,     5,    -1,    82,    -1,    70,    57,
-       5,    -1,    70,    57,    82,    -1,    84,    -1,    71,    56,
-      84,    -1,    35,    19,    65,    79,    53,    -1,    18,    74,
-      19,    77,    79,    76,    53,    -1,    75,    78,    -1,    75,
-      16,    -1,    -1,    25,    -1,    27,    -1,    26,    -1,    -1,
-      21,    22,    83,    -1,    21,    22,    83,    23,    -1,    21,
-      22,    83,    24,    -1,    65,    -1,    77,    56,    65,    -1,
-      83,    -1,    78,    56,    83,    -1,    -1,    20,    80,    -1,
-      81,    -1,    80,    13,    81,    -1,    83,    85,    83,    -1,
-      83,    85,     5,    -1,    83,    85,     4,    -1,     3,    -1,
-      82,     3,    -1,     3,    -1,     3,    -1,    11,    -1
+      60,     0,    -1,    61,    -1,    42,    -1,    54,    -1,    65,
+      -1,    62,    -1,    63,    -1,    74,    -1,    70,    -1,    73,
+      -1,    31,    30,    66,    54,    -1,    32,    30,    66,    64,
+      54,    -1,    13,    -1,    29,    30,    66,    55,    67,    56,
+      54,    -1,     3,    -1,    68,    -1,    67,    57,    68,    -1,
+      84,    69,    -1,     7,    55,     5,    56,    -1,     8,    55,
+       5,    56,    -1,    38,    -1,     9,    -1,    10,    -1,    11,
+      -1,    39,    -1,    33,    34,    66,    35,    55,    71,    56,
+      54,    -1,    33,    34,    66,    55,    72,    56,    35,    55,
+      71,    56,    54,    -1,     5,    -1,    83,    -1,    71,    58,
+       5,    -1,    71,    58,    83,    -1,    85,    -1,    72,    57,
+      85,    -1,    36,    20,    66,    80,    54,    -1,    19,    75,
+      20,    78,    80,    77,    54,    -1,    76,    79,    -1,    76,
+      17,    -1,    -1,    26,    -1,    28,    -1,    27,    -1,    -1,
+      22,    23,    84,    -1,    22,    23,    84,    24,    -1,    22,
+      23,    84,    25,    -1,    66,    -1,    78,    57,    66,    -1,
+      84,    -1,    79,    57,    84,    -1,    -1,    21,    81,    -1,
+      82,    -1,    81,    14,    82,    -1,    84,    86,    84,    -1,
+      84,    86,     5,    -1,    84,    86,     4,    -1,     3,    -1,
+      83,     3,    -1,     3,    -1,     3,    -1,    12,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   103,   103,   108,   114,   115,   116,   117,   118,   119,
-     120,   125,   144,   154,   163,   181,   188,   193,   200,   208,
-     215,   222,   229,   236,   243,   250,   260,   268,   283,   290,
-     295,   302,   309,   314,   322,   339,   365,   366,   375,   378,
-     382,   386,   391,   393,   397,   401,   407,   412,   418,   423,
-     431,   434,   440,   444,   451,   468,   489,   509,   513,   521,
-     527,   534
+       0,   107,   107,   112,   118,   119,   120,   121,   122,   123,
+     124,   129,   154,   170,   179,   202,   209,   214,   221,   229,
+     236,   243,   250,   257,   264,   271,   281,   295,   317,   324,
+     329,   336,   343,   348,   356,   380,   497,   498,   507,   510,
+     514,   518,   523,   525,   529,   533,   539,   545,   552,   557,
+     565,   568,   574,   578,   585,   596,   611,   625,   629,   637,
+     643,   650
 };
 #endif
 
@@ -555,16 +559,17 @@ static const yytype_uint16 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "NAME", "STRING", "NUMBER", "CHAR",
-  "VARCHAR", "LONG", "FLOAT", "DOUBLE", "COMPARISON", "PATH", "AND", "'+'",
-  "'-'", "'*'", "'/'", "SELECT", "FROM", "WHERE", "ORDER", "BY", "ASC",
-  "DESC", "ALL", "UNIQUE", "DISTINCT", "CREATE", "TABLE", "DROP", "LOAD",
-  "INSERT", "INTO", "VALUES", "DELETE", "CHARACTER", "INTEGER", "DATE",
-  "SHOW", "TABLES", "EXIT", "DATA", "HASH", "BPT", "HELP", "ON", "PRIMARY",
-  "KEY", "UPDATE", "SET", "DESCRIBE", "ADMIN", "';'", "'('", "')'", "','",
-  "'|'", "$accept", "sql_list", "sql", "drop_table", "load_table", "path",
-  "create_table", "table_name", "attribute_def_list", "attribute_def_item",
-  "data_type", "insert_stat", "value_list", "field_list", "delete_stat",
+  "$end", "error", "$undefined", "NAME", "STRING", "NUMBER",
+  "FLOATNUMBER", "CHAR", "VARCHAR", "LONG", "FLOAT", "DOUBLE",
+  "COMPARISON", "PATH", "AND", "'+'", "'-'", "'*'", "'/'", "SELECT",
+  "FROM", "WHERE", "ORDER", "BY", "ASC", "DESC", "ALL", "UNIQUE",
+  "DISTINCT", "CREATE", "TABLE", "DROP", "LOAD", "INSERT", "INTO",
+  "VALUES", "DELETE", "CHARACTER", "INTEGER", "DATE", "SHOW", "TABLES",
+  "EXIT", "DATA", "HASH", "BPT", "HELP", "ON", "PRIMARY", "KEY", "UPDATE",
+  "SET", "DESCRIBE", "ADMIN", "';'", "'('", "')'", "','", "'|'", "$accept",
+  "sql_list", "sql", "drop_table", "load_table", "path", "create_table",
+  "table_name", "attribute_def_list", "attribute_def_item", "data_type",
+  "insert_stat", "value_list", "field_list", "delete_stat",
   "select_from_table", "select_clause", "unique", "order_clause",
   "fromlist", "sellist", "where_clause", "condition", "expr", "sentence",
   "attribute_name", "field_name", "cmp", 0
@@ -577,24 +582,24 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,    43,    45,    42,    47,   269,   270,
+     265,   266,   267,   268,   269,    43,    45,    42,    47,   270,
      271,   272,   273,   274,   275,   276,   277,   278,   279,   280,
      281,   282,   283,   284,   285,   286,   287,   288,   289,   290,
      291,   292,   293,   294,   295,   296,   297,   298,   299,   300,
-     301,   302,   303,    59,    40,    41,    44,   124
+     301,   302,   303,   304,    59,    40,    41,    44,   124
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    58,    59,    59,    60,    60,    60,    60,    60,    60,
-      60,    61,    62,    63,    64,    65,    66,    66,    67,    68,
-      68,    68,    68,    68,    68,    68,    69,    69,    70,    70,
-      70,    70,    71,    71,    72,    73,    74,    74,    75,    75,
-      75,    75,    76,    76,    76,    76,    77,    77,    78,    78,
-      79,    79,    80,    80,    81,    81,    81,    82,    82,    83,
-      84,    85
+       0,    59,    60,    60,    61,    61,    61,    61,    61,    61,
+      61,    62,    63,    64,    65,    66,    67,    67,    68,    69,
+      69,    69,    69,    69,    69,    69,    70,    70,    71,    71,
+      71,    71,    72,    72,    73,    74,    75,    75,    76,    76,
+      76,    76,    77,    77,    77,    77,    78,    78,    79,    79,
+      80,    80,    81,    81,    82,    82,    82,    83,    83,    84,
+      85,    86
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
@@ -638,29 +643,29 @@ static const yytype_int8 yydefgoto[] =
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -42
+#define YYPACT_NINF -33
 static const yytype_int8 yypact[] =
 {
-     -13,    16,   -23,   -16,     7,   -12,    34,   -42,   -42,    54,
-     -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
-      36,     9,    55,    55,    55,    55,    55,   -42,    55,   -42,
-     -42,     3,   -42,   -42,     8,     4,    48,   -31,    44,   -42,
-     -19,    58,    58,   -42,   -42,    14,    15,    65,    58,    17,
-      55,    50,   -42,    -8,   -42,     1,   -42,    -1,   -42,    -6,
-     -42,    59,   -42,    62,   -42,   -42,    52,    22,    23,    58,
-      24,    25,   -42,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
-     -41,    74,    46,    65,    58,   -42,    41,    58,   -42,   -42,
-     -42,    76,    77,    30,    21,   -42,    31,   -42,   -42,   -42,
-     -42,   -42,    28,    29,    32,   -42,   -42,    74,    -1,   -42,
-     -42,   -42,   -42,   -22,    33,   -42
+     -14,    -2,    12,    15,    23,   -13,    16,   -33,   -33,    54,
+     -33,   -33,   -33,   -33,   -33,   -33,   -33,   -33,   -33,   -33,
+      35,    -1,    55,    55,    55,    55,    55,   -33,    55,   -33,
+     -33,     2,   -33,   -33,     5,     3,    48,   -32,    41,   -33,
+     -20,    61,    61,   -33,   -33,    13,    14,    65,    61,    17,
+      55,    50,   -33,    -9,   -33,     0,   -33,     1,   -33,    -7,
+     -33,    56,   -33,    62,   -33,   -33,    52,    19,    22,    61,
+      24,    25,   -33,   -33,   -33,   -33,   -33,   -33,   -33,   -33,
+     -23,    74,    43,    65,    61,   -33,     9,    61,   -33,   -33,
+     -33,    76,    77,    29,    38,   -33,    30,   -33,   -33,   -33,
+     -33,   -33,    27,    28,    31,   -33,   -33,    74,     1,   -33,
+     -33,   -33,   -33,   -12,    32,   -33
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -42,   -42,   -42,   -42,   -42,   -42,   -42,     6,   -42,    19,
-     -42,   -42,   -18,   -42,   -42,   -42,   -42,   -42,   -42,   -42,
-     -42,    49,   -42,    10,    -3,   -21,    12,   -42
+     -33,   -33,   -33,   -33,   -33,   -33,   -33,     6,   -33,    20,
+     -33,   -33,   -18,   -33,   -33,   -33,   -33,   -33,   -33,   -33,
+     -33,    51,   -33,     4,     7,   -21,    10,   -33
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -670,48 +675,50 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-      32,    48,    78,    46,    79,     1,    22,    70,    71,    72,
-      73,    74,    29,    23,    93,     2,    94,     3,     4,     5,
-      52,    25,     6,    47,    78,    30,   106,    63,     7,    35,
-      36,    37,    38,   114,    39,    94,    24,    50,    75,    76,
-       8,    17,    18,    19,    29,    99,   100,    68,    69,    82,
-      83,   109,   110,    26,    27,    28,    65,    43,    33,    41,
-      44,    29,    42,    63,    48,   101,   102,    56,    58,    57,
-      64,    66,    84,    85,    87,    88,    89,    95,    91,    92,
-      96,   103,   104,   105,   111,   108,   115,   112,    90,    51,
-     113,   107,     0,     0,    98,    97
+      32,    48,    29,    46,    78,     1,    79,    70,    71,    72,
+      73,    74,    29,    99,   100,     2,    30,     3,     4,     5,
+      52,    25,     6,    47,    17,    18,    19,    63,     7,    35,
+      36,    37,    38,    93,    39,    94,    26,    50,    75,    76,
+       8,    78,    22,   106,   114,    23,    94,    68,    69,    82,
+      83,   109,   110,    24,    27,    28,    65,    43,    33,    41,
+      42,    44,    48,    63,    29,   101,   102,    56,    58,    57,
+      84,    64,    66,    88,    85,    87,    89,    95,    96,    91,
+      92,   103,   104,   105,   111,   108,   115,   112,    98,    90,
+     113,    51,     0,    97,     0,     0,     0,     0,     0,     0,
+       0,   107
 };
 
 static const yytype_int8 yycheck[] =
 {
-      21,    20,     3,    34,     5,    18,    29,     6,     7,     8,
-       9,    10,     3,    29,    55,    28,    57,    30,    31,    32,
-      41,    33,    35,    54,     3,    16,     5,    48,    41,    23,
-      24,    25,    26,    55,    28,    57,    29,    56,    37,    38,
-      53,    25,    26,    27,     3,     4,     5,    55,    56,    55,
-      56,    23,    24,    19,     0,    19,    50,    53,     3,    56,
-      12,     3,    54,    84,    20,    86,    87,    53,     3,    54,
-      53,    21,    13,    11,    22,    53,    53,     3,    54,    54,
-      34,     5,     5,    53,    55,    54,    53,    55,    69,    40,
-     108,    94,    -1,    -1,    84,    83
+      21,    21,     3,    35,     3,    19,     5,     7,     8,     9,
+      10,    11,     3,     4,     5,    29,    17,    31,    32,    33,
+      41,    34,    36,    55,    26,    27,    28,    48,    42,    23,
+      24,    25,    26,    56,    28,    58,    20,    57,    38,    39,
+      54,     3,    30,     5,    56,    30,    58,    56,    57,    56,
+      57,    24,    25,    30,     0,    20,    50,    54,     3,    57,
+      55,    13,    21,    84,     3,    86,    87,    54,     3,    55,
+      14,    54,    22,    54,    12,    23,    54,     3,    35,    55,
+      55,     5,     5,    54,    56,    55,    54,    56,    84,    69,
+     108,    40,    -1,    83,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    94
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    18,    28,    30,    31,    32,    35,    41,    53,    59,
-      60,    61,    62,    64,    69,    72,    73,    25,    26,    27,
-      74,    75,    29,    29,    29,    33,    19,     0,    19,     3,
-      16,    78,    83,     3,    65,    65,    65,    65,    65,    65,
-      77,    56,    54,    53,    12,    63,    34,    54,    20,    79,
-      56,    79,    83,    66,    67,    83,    53,    54,     3,    71,
-      84,    80,    81,    83,    53,    65,    21,    76,    55,    56,
-       6,     7,     8,     9,    10,    37,    38,    68,     3,     5,
-      70,    82,    55,    56,    13,    11,    85,    22,    53,    53,
-      67,    54,    54,    55,    57,     3,    34,    84,    81,     4,
-       5,    83,    83,     5,     5,    53,     5,    82,    54,    23,
-      24,    55,    55,    70,    55,    53
+       0,    19,    29,    31,    32,    33,    36,    42,    54,    60,
+      61,    62,    63,    65,    70,    73,    74,    26,    27,    28,
+      75,    76,    30,    30,    30,    34,    20,     0,    20,     3,
+      17,    79,    84,     3,    66,    66,    66,    66,    66,    66,
+      78,    57,    55,    54,    13,    64,    35,    55,    21,    80,
+      57,    80,    84,    67,    68,    84,    54,    55,     3,    72,
+      85,    81,    82,    84,    54,    66,    22,    77,    56,    57,
+       7,     8,     9,    10,    11,    38,    39,    69,     3,     5,
+      71,    83,    56,    57,    14,    12,    86,    23,    54,    54,
+      68,    55,    55,    56,    58,     3,    35,    85,    82,     4,
+       5,    84,    84,     5,     5,    54,     5,    83,    55,    24,
+      25,    56,    56,    71,    56,    54
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1525,7 +1532,7 @@ yyreduce:
         case 2:
 
 /* Line 1455 of yacc.c  */
-#line 104 "exp4.y"
+#line 108 "exp4.y"
     {
 			lineno = 1;
 			return 0;
@@ -1535,7 +1542,7 @@ yyreduce:
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 109 "exp4.y"
+#line 113 "exp4.y"
     {
 			return -1;
 		;}
@@ -1544,18 +1551,24 @@ yyreduce:
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 126 "exp4.y"
+#line 130 "exp4.y"
     {
 			//start = clock();
 			//printf("drop table %s\n",$3);
+			if(CHECK_TABLE((yyvsp[(3) - (4)].strval)) == 0){//表不存在
+				printf("Table %s does not exist! Fail to drop table!\n",(yyvsp[(3) - (4)].strval));
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				int Signal = DROP_TABLE((yyvsp[(3) - (4)].strval));
+				if(Signal == 1)
+					printf("success to drop table %s\n",(yyvsp[(3) - (4)].strval));
+				else if(Signal == 2)
+					printf("table %s does not exist\n",(yyvsp[(3) - (4)].strval));
+				else
+					printf("fail to drop table %s \n",(yyvsp[(3) - (4)].strval));
+			}
 			
-			int Signal = DROP_TABLE((yyvsp[(3) - (4)].strval));
-			if(Signal == 1)
-				printf("success to drop table %s\n",(yyvsp[(3) - (4)].strval));
-			else if(Signal == 2)
-				printf("table %s does not exist\n",(yyvsp[(3) - (4)].strval));
-			else
-				printf("fail to drop table %s \n",(yyvsp[(3) - (4)].strval));
 			
 			//end = clock();
 			// yyPrintRunTime(start, end);
@@ -1565,11 +1578,17 @@ yyreduce:
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 145 "exp4.y"
+#line 155 "exp4.y"
     {
 			//start = clock();
-			printf("load table %s from file %s\n",(yyvsp[(3) - (5)].strval),(yyvsp[(4) - (5)].strval));
-			LOAD_TABLE((yyvsp[(3) - (5)].strval),(yyvsp[(4) - (5)].strval));
+			if(CHECK_TABLE((yyvsp[(3) - (5)].strval)) == 0){//表不存在
+				printf("Table %s does not exist! Fail to load file into table!\n",(yyvsp[(3) - (5)].strval));
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				printf("load table %s from file %s\n",(yyvsp[(3) - (5)].strval),(yyvsp[(4) - (5)].strval));
+				LOAD_TABLE((yyvsp[(3) - (5)].strval),(yyvsp[(4) - (5)].strval));
+			}
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		;}
@@ -1578,7 +1597,7 @@ yyreduce:
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 155 "exp4.y"
+#line 171 "exp4.y"
     {
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 			//printf("file: %s\n",$1);
@@ -1588,18 +1607,23 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 164 "exp4.y"
+#line 180 "exp4.y"
     {
 			//start = clock();
 			//printf("grammar tree: create_table <- CREATE TABLE table_name '(' attribute_def_list%d')' ';'\n",ANo-1);
-			int Signal = CREATE_TABLE((yyvsp[(3) - (7)].strval), ANo, R);
-			if(Signal == 1)
-				printf("success to create table %s \n",(yyvsp[(3) - (7)].strval));
-			else if(Signal == 2)
-				printf("table %s has already existed\n",(yyvsp[(3) - (7)].strval));
-			else
-				printf("fail to create table %s \n",(yyvsp[(3) - (7)].strval));
-			ANo = 0;
+			if(CHECK_TABLE((yyvsp[(3) - (7)].strval)) == 1){//表存在
+				printf("Table %s exist! Fail to create table!\n",(yyvsp[(3) - (7)].strval));
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				int Signal = CREATE_TABLE((yyvsp[(3) - (7)].strval), ANo, R);
+				if(Signal == 1)
+					printf("success to create table %s \n",(yyvsp[(3) - (7)].strval));
+				else if(Signal == 2)
+					printf("table %s has already existed\n",(yyvsp[(3) - (7)].strval));
+				else
+					printf("fail to create table %s \n",(yyvsp[(3) - (7)].strval));
+			}
 			//printf("%d\n",R->Head->attrubuteNum);
 			//end = clock();
 			// yyPrintRunTime(start, end);
@@ -1609,7 +1633,7 @@ yyreduce:
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 182 "exp4.y"
+#line 203 "exp4.y"
     {
 			//printf("grammar tree: table_name <- NAME\n");
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
@@ -1619,7 +1643,7 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 189 "exp4.y"
+#line 210 "exp4.y"
     {
 			//printf("grammar tree: attribute_def_list%d<- attribute_def_item%d\n",ANo,item_No-1);
 			ANo ++;
@@ -1629,7 +1653,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 194 "exp4.y"
+#line 215 "exp4.y"
     {
 			//printf("grammar tree: attribute_def_list%d<- attribute_def_list%d',' attribute_def_item%d\n",ANo,ANo-1,item_No-1);
 			ANo ++;
@@ -1639,7 +1663,7 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 201 "exp4.y"
+#line 222 "exp4.y"
     {
 			//printf("grammar tree: attribute_def_item%d<- %s data_type%d\n",item_No,$1,type_No-1);
 			strcpy(R->attribute[ANo]->name, (yyvsp[(1) - (2)].strval));
@@ -1650,7 +1674,7 @@ yyreduce:
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 209 "exp4.y"
+#line 230 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- CHAR '(' %d ')'\n",type_No,$3);
 			R->attribute[ANo]->type = 1;
@@ -1662,7 +1686,7 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 216 "exp4.y"
+#line 237 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- VARCHAR '(' %d ')'\n",type_No,$3);
 			R->attribute[ANo]->type = 2;
@@ -1674,7 +1698,7 @@ yyreduce:
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 223 "exp4.y"
+#line 244 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- INTEGER\n",type_No);
 			R->attribute[ANo]->type = 3;
@@ -1686,7 +1710,7 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 230 "exp4.y"
+#line 251 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- LONG\n",type_No);
 			R->attribute[ANo]->type = 4;
@@ -1698,7 +1722,7 @@ yyreduce:
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 237 "exp4.y"
+#line 258 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- FLOAT\n",type_No);
 			R->attribute[ANo]->type = 5;
@@ -1710,7 +1734,7 @@ yyreduce:
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 244 "exp4.y"
+#line 265 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- DOUBLE\n",type_No);
 			R->attribute[ANo]->type = 6;
@@ -1722,7 +1746,7 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 251 "exp4.y"
+#line 272 "exp4.y"
     {
 			//printf("grammar tree: data_type%d<- DATE\n",type_No);
 			R->attribute[ANo]->type = 7;
@@ -1734,11 +1758,17 @@ yyreduce:
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 261 "exp4.y"
+#line 282 "exp4.y"
     {
 			//start = clock();
-			printf("%d\n",valcnt);
-			INSERT_RECORD((yyvsp[(3) - (8)].strval),FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			if(CHECK_TABLE((yyvsp[(3) - (8)].strval)) == 0){//表不存在
+				printf("Table %s does not exist! Fail to insert record into table!\n",(yyvsp[(3) - (8)].strval));
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				printf("%d\n",valcnt);
+				INSERT_RECORD((yyvsp[(3) - (8)].strval),FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			}
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		;}
@@ -1747,16 +1777,23 @@ yyreduce:
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 269 "exp4.y"
+#line 296 "exp4.y"
     {
 			//start = clock();
-			if(fiecnt == valcnt){
-				printf("insert order valid!\n");
-				INSERT_RECORD((yyvsp[(3) - (11)].strval),FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			if(CHECK_TABLE((yyvsp[(3) - (11)].strval)) == 0){//表不存在
+                printf("Table %s does not exist! Fail to insert record into table!\n",(yyvsp[(3) - (11)].strval));
+				printf("Please check your sql order and input again!\n");
 			}
 			else{
-				printf("insert order invalid!\n");
+				if(fiecnt == valcnt){
+					printf("insert order valid!\n");
+					INSERT_RECORD((yyvsp[(3) - (11)].strval),FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+				}
+				else{
+					printf("insert order invalid!\n");
+				}
 			}
+			
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		;}
@@ -1765,7 +1802,7 @@ yyreduce:
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 284 "exp4.y"
+#line 318 "exp4.y"
     {
 			char s[20];
 			itoa((yyvsp[(1) - (1)].intval), s, 10);
@@ -1777,7 +1814,7 @@ yyreduce:
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 291 "exp4.y"
+#line 325 "exp4.y"
     {
 			strcpy(VALUE_LIST[valcnt], (yyvsp[(1) - (1)].strval));
 			valcnt ++;
@@ -1787,7 +1824,7 @@ yyreduce:
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 296 "exp4.y"
+#line 330 "exp4.y"
     {
 			char s[20];
 			itoa((yyvsp[(3) - (3)].intval), s, 10);
@@ -1799,7 +1836,7 @@ yyreduce:
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 303 "exp4.y"
+#line 337 "exp4.y"
     {
 			strcpy(VALUE_LIST[valcnt], (yyvsp[(3) - (3)].strval));
 			valcnt ++;
@@ -1809,7 +1846,7 @@ yyreduce:
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 310 "exp4.y"
+#line 344 "exp4.y"
     {
 			strcpy(FIELD_LIST[fiecnt], (yyvsp[(1) - (1)].strval));
 			fiecnt ++;
@@ -1819,7 +1856,7 @@ yyreduce:
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 315 "exp4.y"
+#line 349 "exp4.y"
     {
 			strcpy(FIELD_LIST[fiecnt], (yyvsp[(3) - (3)].strval));
 			fiecnt ++;
@@ -1829,17 +1866,24 @@ yyreduce:
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 323 "exp4.y"
+#line 357 "exp4.y"
     {
 			//start = clock();
-			DELETE_SIGN = 1;
-			if(is_where == 0){
-				printf("if you want to delete some records,your condition can not be null!\n");
+			if(CHECK_TABLE((yyvsp[(3) - (5)].strval)) == 0){//表不存在
+                printf("Table %s does not exist! Fail to delete record from table!\n",(yyvsp[(3) - (5)].strval));
+				printf("Please check your sql order and input again!\n");
 			}
 			else{
-				printf("start delete!\n");
-				select_attr((yyvsp[(3) - (5)].strval),ATTRIBUTE_LIST,selcnt,cond[0].attribute1,cond[0].operator0,cond[0].attribute2);
+				DELETE_SIGN = 1;
+				if(is_where == 0){
+					printf("if you want to delete some records,your condition can not be null!\n");
+				}
+				else{
+					printf("start delete!\n");
+					select_attr((yyvsp[(3) - (5)].strval),ATTRIBUTE_LIST,selcnt,cond[0].attribute1,cond[0].operator0,cond[0].attribute2);
+				}
 			}
+			
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		;}
@@ -1848,26 +1892,117 @@ yyreduce:
   case 35:
 
 /* Line 1455 of yacc.c  */
-#line 340 "exp4.y"
+#line 381 "exp4.y"
     {
 			//before = clock();
 			//select_lqp(selcnt, selattrs, tbcnt, rel, condcnt, cond, orderby, orderattr, is_uni, is_ares);
-			if(selcnt == 0){
-				int TNo = Get_TNo((yyvsp[(4) - (7)].strval));
-				selcnt = Recinfo[TNo]->Head->attrubuteNum;
-				for(int i=0;i<selcnt;i++){
-					strcpy(ATTRIBUTE_LIST[i],Recinfo[TNo]->attribute[i]->name);
+			printf("number of table %d\n",tbcnt);
+			if(tbcnt == 1)//单表选择
+			{
+				if(CHECK_TABLE((yyvsp[(4) - (7)].strval)) == 0){//表不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",(yyvsp[(4) - (7)].strval));
+					printf("Please check your sql order and input again!\n");
 				}
+				else//表存在
+				{
+					if(selcnt == 0){//选择列为*
+						int TNo = Get_TNo((yyvsp[(4) - (7)].strval));
+						selcnt = Recinfo[TNo]->Head->attrubuteNum;
+						for(int i=0;i<selcnt;i++){
+							strcpy(ATTRIBUTE_LIST[i],Recinfo[TNo]->attribute[i]->name);
+						}
+					}
+
+					if(condcnt == 0){//无条件投影
+						//for(int i=0;i<selcnt;i++)
+							//printf("%s ",ATTRIBUTE_LIST[i]);
+						print_attr((yyvsp[(4) - (7)].strval),ATTRIBUTE_LIST,selcnt);
+					}
+					else//选择
+						select_attr((yyvsp[(4) - (7)].strval),ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
+				}
+				
 			}
-			if(condcnt == 0){
-				for(int i=0;i<selcnt;i++)
-					printf("%s ",ATTRIBUTE_LIST[i]);
-				print_attr((yyvsp[(4) - (7)].strval),ATTRIBUTE_LIST,selcnt);//投影，无查找
+			else if(tbcnt == 2)//多表连接
+			{
+				if(CHECK_TABLE(TABLE_LIST[0]) == 0){//表1不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",TABLE_LIST[0]);
+					printf("Please check your sql order and input again!\n");
+				}
+				else if(CHECK_TABLE(TABLE_LIST[1]) == 0){//表2不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",TABLE_LIST[1]);
+					printf("Please check your sql order and input again!\n");
+				}
+				else{
+					int TNo0,TNo1;
+					TNo0 = Get_TNo(TABLE_LIST[0]);
+					TNo1 = Get_TNo(TABLE_LIST[1]);
+					if(selcnt == 0){//选择列为*
+							//printf("!!!!!!\n");
+							
+							Record *join = recjoin(TABLE_LIST[0],TABLE_LIST[0]);
+							selcnt = join->Head->attrubuteNum;
+							for(int i=0;i<selcnt;i++){
+								strcpy(ATTRIBUTE_LIST[i],join->attribute[i]->name);
+							}
+					}
+					if(condcnt == 0){//无条件投影,卡式积
+							//printf("卡式积\n");
+						KaConnect(TNo0,TNo1,Buf,PTList[TNo0],PTList[TNo1]);
+					}
+					int OPTION = -1;
+					if(cond[0].operator0[0] == '=')
+						OPTION = 1;
+					else if(cond[0].operator0[0] == '<'&&cond[0].operator0[1] == '>')
+						OPTION = 0;
+					if(OPTION != -1){
+						
+						int Length0 = TABLE_SIZE(TNo0);
+						int Length1 = TABLE_SIZE(TNo1);
+						printf("size of table %s:%d\n",TABLE_LIST[0],Length0);
+						printf("size of table %s:%d\n",TABLE_LIST[1],Length1);
+						if(Length0>Length1){
+							printf("exchange the order of two table!\n");
+							int tmp = TNo0;
+							TNo0 = TNo1;
+							TNo1 = tmp;
+						}
+						
+						else{//选择
+							//select_attr($4,ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
+							//void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Buf1,PageTable *PT1,PageTable *PT2)
+							int ANo0 = FIND_ANO(TNo0,cond[0].attribute1);
+							if(ANo0 != -1){
+								int ANo1 = FIND_ANO(TNo1,cond[0].attribute2);
+								if(ANo1 != -1){
+									printf("start connect table!\n");
+									ConnectTable1(TNo0,TNo1,ANo0,ANo1,OPTION,Buf,PTList[TNo0],PTList[TNo1]);
+								}
+								else{
+									printf("you input extra table!\n");
+								}
+							}
+							else{//交换选择属性名次序
+								ANo0 = FIND_ANO(TNo1,cond[0].attribute1);
+								int ANo1 = FIND_ANO(TNo0,cond[0].attribute2);
+								if(ANo0 != -1&&ANo1 != -1){
+									printf("exchange attributename and start connect table!\n");
+									ConnectTable1(TNo0,TNo1,ANo1,ANo0,OPTION,Buf,PTList[TNo0],PTList[TNo1]);
+								}
+								else{
+									printf("fail to exchange!\n");
+								}
+							}
+							
+						}
+					}
+					else{
+						printf("Sorry,our DBMS does not support this operator when connencting table!\n");
+					}	
+				}
+				
+
 			}
-			else
-				select_attr((yyvsp[(4) - (7)].strval),ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
-			//printf("%s %s %s\n",cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
-			printf("select %d from %d table which have %d condition where \n",selcnt,tbcnt,condcnt);
 			//after = clock();
 			//print_runtime(before, after);
 		;}
@@ -1876,7 +2011,7 @@ yyreduce:
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 367 "exp4.y"
+#line 499 "exp4.y"
     {
 			//selcnt=MAXCOND_SEL;
 			selcnt=0;
@@ -1887,7 +2022,7 @@ yyreduce:
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 375 "exp4.y"
+#line 507 "exp4.y"
     {
 			is_uni = 0;
 		;}
@@ -1896,7 +2031,7 @@ yyreduce:
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 379 "exp4.y"
+#line 511 "exp4.y"
     {
 			is_uni = 0;
 		;}
@@ -1905,7 +2040,7 @@ yyreduce:
   case 40:
 
 /* Line 1455 of yacc.c  */
-#line 383 "exp4.y"
+#line 515 "exp4.y"
     {
 			is_uni = 1;
 		;}
@@ -1914,7 +2049,7 @@ yyreduce:
   case 41:
 
 /* Line 1455 of yacc.c  */
-#line 387 "exp4.y"
+#line 519 "exp4.y"
     {
 			is_uni = 1;
 		;}
@@ -1923,7 +2058,7 @@ yyreduce:
   case 43:
 
 /* Line 1455 of yacc.c  */
-#line 394 "exp4.y"
+#line 526 "exp4.y"
     {
 			orderby = 1;
 		;}
@@ -1932,7 +2067,7 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 398 "exp4.y"
+#line 530 "exp4.y"
     {
 			orderby = 1;
 		;}
@@ -1941,7 +2076,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 402 "exp4.y"
+#line 534 "exp4.y"
     {
 			orderby = 2;
 		;}
@@ -1950,8 +2085,9 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 408 "exp4.y"
+#line 540 "exp4.y"
     {
+			strcpy(TABLE_LIST[tbcnt],(yyvsp[(1) - (1)].strval));
 			tbcnt++;
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 		;}
@@ -1960,8 +2096,9 @@ yyreduce:
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 413 "exp4.y"
+#line 546 "exp4.y"
     {
+			strcpy(TABLE_LIST[tbcnt],(yyvsp[(3) - (3)].strval));
 			tbcnt++;
 		;}
     break;
@@ -1969,7 +2106,7 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 419 "exp4.y"
+#line 553 "exp4.y"
     {
 			strcpy(ATTRIBUTE_LIST[selcnt],(yyvsp[(1) - (1)].strval));
 			selcnt++;
@@ -1979,7 +2116,7 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 424 "exp4.y"
+#line 558 "exp4.y"
     {
 			strcpy(ATTRIBUTE_LIST[selcnt],(yyvsp[(3) - (3)].strval));
 			selcnt++;
@@ -1989,7 +2126,7 @@ yyreduce:
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 431 "exp4.y"
+#line 565 "exp4.y"
     {
 			is_where = 0;
 		;}
@@ -1998,7 +2135,7 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 435 "exp4.y"
+#line 569 "exp4.y"
     {
 			is_where = 1;
 		;}
@@ -2007,7 +2144,7 @@ yyreduce:
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 441 "exp4.y"
+#line 575 "exp4.y"
     {
 			condcnt++;
 		;}
@@ -2016,7 +2153,7 @@ yyreduce:
   case 53:
 
 /* Line 1455 of yacc.c  */
-#line 445 "exp4.y"
+#line 579 "exp4.y"
     {
 			
 			condcnt++;
@@ -2026,38 +2163,26 @@ yyreduce:
   case 54:
 
 /* Line 1455 of yacc.c  */
-#line 452 "exp4.y"
+#line 586 "exp4.y"
     {
 			cond[condcnt].is_attribute = 1;
 			op = (yyvsp[(2) - (3)].strval);   
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			strcpy(cond[condcnt].attribute1 , (yyvsp[(1) - (3)].strval));
 			strcpy(cond[condcnt].attribute2,(yyvsp[(3) - (3)].strval));
 			strcpy(cond[condcnt].operator0 , (yyvsp[(2) - (3)].strval));
-			printf("%s ",cond[condcnt].attribute1);
+			/*printf("%s ",cond[condcnt].attribute1);
 			printf("%s ",cond[condcnt].operator0);
-			printf("%s\n",cond[condcnt].attribute2);
+			printf("%s\n",cond[condcnt].attribute2);*/
 		;}
     break;
 
   case 55:
 
 /* Line 1455 of yacc.c  */
-#line 469 "exp4.y"
+#line 597 "exp4.y"
     {
 			cond[condcnt].is_attribute = 0;
 			op = (yyvsp[(2) - (3)].strval);
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			//printf("%s\n",$1);
 			strcpy(cond[condcnt].attribute1,(yyvsp[(1) - (3)].strval));
 			char s[20];
@@ -2065,25 +2190,19 @@ yyreduce:
 			strcpy(cond[condcnt].attribute2,s);
 			cond[condcnt].constantnumber = (yyvsp[(3) - (3)].intval);
 			strcpy(cond[condcnt].operator0,(yyvsp[(2) - (3)].strval));
-			printf("%s ",cond[condcnt].attribute1);
+			/*printf("%s ",cond[condcnt].attribute1);
 			printf("%s ",cond[condcnt].operator0);
-			printf("%d\n",cond[condcnt].constantnumber);
+			printf("%d\n",cond[condcnt].constantnumber);*/
 		;}
     break;
 
   case 56:
 
 /* Line 1455 of yacc.c  */
-#line 490 "exp4.y"
+#line 612 "exp4.y"
     {
 			cond[condcnt].is_attribute = 2;
 			op = (yyvsp[(2) - (3)].strval);
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			//printf("%s\n",$1);
 			strcpy(cond[condcnt].attribute1,(yyvsp[(1) - (3)].strval));
 			strcpy(cond[condcnt].attribute2,(yyvsp[(3) - (3)].strval));
@@ -2097,7 +2216,7 @@ yyreduce:
   case 57:
 
 /* Line 1455 of yacc.c  */
-#line 510 "exp4.y"
+#line 626 "exp4.y"
     {
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 		;}
@@ -2106,7 +2225,7 @@ yyreduce:
   case 58:
 
 /* Line 1455 of yacc.c  */
-#line 514 "exp4.y"
+#line 630 "exp4.y"
     {
 			char p[255];
 			sprintf(p,"%s %s",(yyvsp[(1) - (2)].strval),(yyvsp[(2) - (2)].strval));
@@ -2117,7 +2236,7 @@ yyreduce:
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 522 "exp4.y"
+#line 638 "exp4.y"
     {
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 		;}
@@ -2126,7 +2245,7 @@ yyreduce:
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 528 "exp4.y"
+#line 644 "exp4.y"
     {
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 			//printf("%s\n",$$);
@@ -2136,7 +2255,7 @@ yyreduce:
   case 61:
 
 /* Line 1455 of yacc.c  */
-#line 535 "exp4.y"
+#line 651 "exp4.y"
     {
 			(yyval.strval) = (yyvsp[(1) - (1)].strval);
 			//printf("%s\n",$$);
@@ -2146,7 +2265,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 2150 "exp4.tab.c"
+#line 2269 "exp4.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2358,7 +2477,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 540 "exp4.y"
+#line 656 "exp4.y"
 
 int parserInit()
 {
@@ -2376,6 +2495,7 @@ int parserInit()
 	DELETE_SIGN = 0;
 	item_No = 0;
 	type_No = 0;
+	ANo = 0;
 	return 0;
 }
 

@@ -26,6 +26,7 @@ typedef struct ConDition{
 static int is_ares;//是否选择全部属性 是为1，不是为0
 
 static int tbcnt;//表数量
+char TABLE_LIST[MAX_OF_TABLE][20];
 
 static int is_uni;
 
@@ -42,6 +43,8 @@ static int fiecnt;//插入属性名数量
 char FIELD_LIST[Max_Attribute_Num][20];
 
 static char *op;//操作符
+
+
 /* used for order */
 static int orderby;//orderby顺序
 static int is_where;//是否有where
@@ -63,6 +66,7 @@ int type_No;
 %token <strval> NAME
 %token <strval> STRING
 %token <intval> NUMBER
+%token <strval> FLOATNUMBER
 %token <strval> CHAR
 %token <strval> VARCHAR
 %token <strval> LONG
@@ -126,14 +130,20 @@ drop_table:
 		{
 			//start = clock();
 			//printf("drop table %s\n",$3);
+			if(CHECK_TABLE($3) == 0){//表不存在
+				printf("Table %s does not exist! Fail to drop table!\n",$3);
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				int Signal = DROP_TABLE($3);
+				if(Signal == 1)
+					printf("success to drop table %s\n",$3);
+				else if(Signal == 2)
+					printf("table %s does not exist\n",$3);
+				else
+					printf("fail to drop table %s \n",$3);
+			}
 			
-			int Signal = DROP_TABLE($3);
-			if(Signal == 1)
-				printf("success to drop table %s\n",$3);
-			else if(Signal == 2)
-				printf("table %s does not exist\n",$3);
-			else
-				printf("fail to drop table %s \n",$3);
 			
 			//end = clock();
 			// yyPrintRunTime(start, end);
@@ -144,8 +154,14 @@ load_table:
 		LOAD TABLE table_name path ';'
 		{
 			//start = clock();
-			printf("load table %s from file %s\n",$3,$4);
-			LOAD_TABLE($3,$4);
+			if(CHECK_TABLE($3) == 0){//表不存在
+				printf("Table %s does not exist! Fail to load file into table!\n",$3);
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				printf("load table %s from file %s\n",$3,$4);
+				LOAD_TABLE($3,$4);
+			}
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		}
@@ -164,14 +180,19 @@ create_table:
 		{
 			//start = clock();
 			//printf("grammar tree: create_table <- CREATE TABLE table_name '(' attribute_def_list%d')' ';'\n",ANo-1);
-			int Signal = CREATE_TABLE($3, ANo, R);
-			if(Signal == 1)
-				printf("success to create table %s \n",$3);
-			else if(Signal == 2)
-				printf("table %s has already existed\n",$3);
-			else
-				printf("fail to create table %s \n",$3);
-			ANo = 0;
+			if(CHECK_TABLE($3) == 1){//表存在
+				printf("Table %s exist! Fail to create table!\n",$3);
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				int Signal = CREATE_TABLE($3, ANo, R);
+				if(Signal == 1)
+					printf("success to create table %s \n",$3);
+				else if(Signal == 2)
+					printf("table %s has already existed\n",$3);
+				else
+					printf("fail to create table %s \n",$3);
+			}
 			//printf("%d\n",R->Head->attrubuteNum);
 			//end = clock();
 			// yyPrintRunTime(start, end);
@@ -260,21 +281,34 @@ insert_stat:
 		INSERT INTO table_name VALUES '(' value_list ')' ';'
 		{
 			//start = clock();
-			printf("%d\n",valcnt);
-			INSERT_RECORD($3,FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			if(CHECK_TABLE($3) == 0){//表不存在
+				printf("Table %s does not exist! Fail to insert record into table!\n",$3);
+				printf("Please check your sql order and input again!\n");
+			}
+			else{
+				printf("%d\n",valcnt);
+				INSERT_RECORD($3,FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			}
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		}
 	|	INSERT INTO table_name '(' field_list ')' VALUES '(' value_list ')' ';'
 		{
 			//start = clock();
-			if(fiecnt == valcnt){
-				printf("insert order valid!\n");
-				INSERT_RECORD($3,FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+			if(CHECK_TABLE($3) == 0){//表不存在
+                printf("Table %s does not exist! Fail to insert record into table!\n",$3);
+				printf("Please check your sql order and input again!\n");
 			}
 			else{
-				printf("insert order invalid!\n");
+				if(fiecnt == valcnt){
+					printf("insert order valid!\n");
+					INSERT_RECORD($3,FIELD_LIST,fiecnt,VALUE_LIST,valcnt);
+				}
+				else{
+					printf("insert order invalid!\n");
+				}
 			}
+			
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		}
@@ -322,14 +356,21 @@ delete_stat:
 		DELETE FROM table_name where_clause ';'
 		{
 			//start = clock();
-			DELETE_SIGN = 1;
-			if(is_where == 0){
-				printf("if you want to delete some records,your condition can not be null!\n");
+			if(CHECK_TABLE($3) == 0){//表不存在
+                printf("Table %s does not exist! Fail to delete record from table!\n",$3);
+				printf("Please check your sql order and input again!\n");
 			}
 			else{
-				printf("start delete!\n");
-				select_attr($3,ATTRIBUTE_LIST,selcnt,cond[0].attribute1,cond[0].operator0,cond[0].attribute2);
+				DELETE_SIGN = 1;
+				if(is_where == 0){
+					printf("if you want to delete some records,your condition can not be null!\n");
+				}
+				else{
+					printf("start delete!\n");
+					select_attr($3,ATTRIBUTE_LIST,selcnt,cond[0].attribute1,cond[0].operator0,cond[0].attribute2);
+				}
 			}
+			
 			//end = clock();
 			// yyPrintRunTime(start, end);
 		}
@@ -340,22 +381,113 @@ select_from_table:
 		{
 			//before = clock();
 			//select_lqp(selcnt, selattrs, tbcnt, rel, condcnt, cond, orderby, orderattr, is_uni, is_ares);
-			if(selcnt == 0){
-				int TNo = Get_TNo($4);
-				selcnt = Recinfo[TNo]->Head->attrubuteNum;
-				for(int i=0;i<selcnt;i++){
-					strcpy(ATTRIBUTE_LIST[i],Recinfo[TNo]->attribute[i]->name);
+			printf("number of table %d\n",tbcnt);
+			if(tbcnt == 1)//单表选择
+			{
+				if(CHECK_TABLE($4) == 0){//表不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",$4);
+					printf("Please check your sql order and input again!\n");
 				}
+				else//表存在
+				{
+					if(selcnt == 0){//选择列为*
+						int TNo = Get_TNo($4);
+						selcnt = Recinfo[TNo]->Head->attrubuteNum;
+						for(int i=0;i<selcnt;i++){
+							strcpy(ATTRIBUTE_LIST[i],Recinfo[TNo]->attribute[i]->name);
+						}
+					}
+
+					if(condcnt == 0){//无条件投影
+						//for(int i=0;i<selcnt;i++)
+							//printf("%s ",ATTRIBUTE_LIST[i]);
+						print_attr($4,ATTRIBUTE_LIST,selcnt);
+					}
+					else//选择
+						select_attr($4,ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
+				}
+				
 			}
-			if(condcnt == 0){
-				for(int i=0;i<selcnt;i++)
-					printf("%s ",ATTRIBUTE_LIST[i]);
-				print_attr($4,ATTRIBUTE_LIST,selcnt);//投影，无查找
+			else if(tbcnt == 2)//多表连接
+			{
+				if(CHECK_TABLE(TABLE_LIST[0]) == 0){//表1不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",TABLE_LIST[0]);
+					printf("Please check your sql order and input again!\n");
+				}
+				else if(CHECK_TABLE(TABLE_LIST[1]) == 0){//表2不存在
+					printf("Table %s does not exist! Fail to select record from table!\n",TABLE_LIST[1]);
+					printf("Please check your sql order and input again!\n");
+				}
+				else{
+					int TNo0,TNo1;
+					TNo0 = Get_TNo(TABLE_LIST[0]);
+					TNo1 = Get_TNo(TABLE_LIST[1]);
+					if(selcnt == 0){//选择列为*
+							//printf("!!!!!!\n");
+							
+							Record *join = recjoin(TABLE_LIST[0],TABLE_LIST[0]);
+							selcnt = join->Head->attrubuteNum;
+							for(int i=0;i<selcnt;i++){
+								strcpy(ATTRIBUTE_LIST[i],join->attribute[i]->name);
+							}
+					}
+					if(condcnt == 0){//无条件投影,卡式积
+							//printf("卡式积\n");
+						KaConnect(TNo0,TNo1,Buf,PTList[TNo0],PTList[TNo1]);
+					}
+					int OPTION = -1;
+					if(cond[0].operator0[0] == '=')
+						OPTION = 1;
+					else if(cond[0].operator0[0] == '<'&&cond[0].operator0[1] == '>')
+						OPTION = 0;
+					if(OPTION != -1){
+						
+						int Length0 = TABLE_SIZE(TNo0);
+						int Length1 = TABLE_SIZE(TNo1);
+						printf("size of table %s:%d\n",TABLE_LIST[0],Length0);
+						printf("size of table %s:%d\n",TABLE_LIST[1],Length1);
+						if(Length0>Length1){
+							printf("exchange the order of two table!\n");
+							int tmp = TNo0;
+							TNo0 = TNo1;
+							TNo1 = tmp;
+						}
+						
+						else{//选择
+							//select_attr($4,ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
+							//void ConnectTable1(int TNo1,int TNo2,int ANo1,int ANo2,int Option,BufferQue* &Buf1,PageTable *PT1,PageTable *PT2)
+							int ANo0 = FIND_ANO(TNo0,cond[0].attribute1);
+							if(ANo0 != -1){
+								int ANo1 = FIND_ANO(TNo1,cond[0].attribute2);
+								if(ANo1 != -1){
+									printf("start connect table!\n");
+									ConnectTable1(TNo0,TNo1,ANo0,ANo1,OPTION,Buf,PTList[TNo0],PTList[TNo1]);
+								}
+								else{
+									printf("you input extra table!\n");
+								}
+							}
+							else{//交换选择属性名次序
+								ANo0 = FIND_ANO(TNo1,cond[0].attribute1);
+								int ANo1 = FIND_ANO(TNo0,cond[0].attribute2);
+								if(ANo0 != -1&&ANo1 != -1){
+									printf("exchange attributename and start connect table!\n");
+									ConnectTable1(TNo0,TNo1,ANo1,ANo0,OPTION,Buf,PTList[TNo0],PTList[TNo1]);
+								}
+								else{
+									printf("fail to exchange!\n");
+								}
+							}
+							
+						}
+					}
+					else{
+						printf("Sorry,our DBMS does not support this operator when connencting table!\n");
+					}	
+				}
+				
+
 			}
-			else
-				select_attr($4,ATTRIBUTE_LIST,selcnt,cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
-			//printf("%s %s %s\n",cond[condcnt-1].attribute1,cond[condcnt-1].operator0,cond[condcnt-1].attribute2);
-			printf("select %d from %d table which have %d condition where \n",selcnt,tbcnt,condcnt);
 			//after = clock();
 			//print_runtime(before, after);
 		}
@@ -406,11 +538,13 @@ order_clause:  //排序
 fromlist:    //from之后tables 
 		table_name   //单个表 
 		{
+			strcpy(TABLE_LIST[tbcnt],$1);
 			tbcnt++;
 			$$ = $1;
 		}
 	|	fromlist ',' table_name   //多个表 
 		{
+			strcpy(TABLE_LIST[tbcnt],$3);
 			tbcnt++;
 		}
 	;
@@ -452,29 +586,17 @@ expr:   //条件表达式
 		{
 			cond[condcnt].is_attribute = 1;
 			op = $2;   
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			strcpy(cond[condcnt].attribute1 , $1);
 			strcpy(cond[condcnt].attribute2,$3);
 			strcpy(cond[condcnt].operator0 , $2);
-			printf("%s ",cond[condcnt].attribute1);
+			/*printf("%s ",cond[condcnt].attribute1);
 			printf("%s ",cond[condcnt].operator0);
-			printf("%s\n",cond[condcnt].attribute2);
+			printf("%s\n",cond[condcnt].attribute2);*/
 		}
 	|	attribute_name cmp NUMBER  //列和数字比较 
 		{
 			cond[condcnt].is_attribute = 0;
 			op = $2;
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			//printf("%s\n",$1);
 			strcpy(cond[condcnt].attribute1,$1);
 			char s[20];
@@ -482,20 +604,14 @@ expr:   //条件表达式
 			strcpy(cond[condcnt].attribute2,s);
 			cond[condcnt].constantnumber = $3;
 			strcpy(cond[condcnt].operator0,$2);
-			printf("%s ",cond[condcnt].attribute1);
+			/*printf("%s ",cond[condcnt].attribute1);
 			printf("%s ",cond[condcnt].operator0);
-			printf("%d\n",cond[condcnt].constantnumber);
+			printf("%d\n",cond[condcnt].constantnumber);*/
 		}
 	|	attribute_name cmp STRING  //列和字符串比较 
 		{
 			cond[condcnt].is_attribute = 2;
 			op = $2;
-			/*if (strcmp(op, "=") == 0) strcpy(cond[condcnt].operator , 'EQ');
-			else if (strcmp(op, ">=") == 0) strcpy(cond[condcnt].operator , 'GE');
-			else if (strcmp(op, "<=") == 0) strcpy(cond[condcnt].operator , 'LE');
-			else if (strcmp(op, ">") == 0) strcpy(cond[condcnt].operator , 'GT');
-			else if (strcmp(op, "<") == 0) strcpy(cond[condcnt].operator , 'LT');
-			else if (strcmp(op, "<>") == 0) strcpy(cond[condcnt].operator , 'NE');*/
 			//printf("%s\n",$1);
 			strcpy(cond[condcnt].attribute1,$1);
 			strcpy(cond[condcnt].attribute2,$3);
@@ -554,6 +670,7 @@ int parserInit()
 	DELETE_SIGN = 0;
 	item_No = 0;
 	type_No = 0;
+	ANo = 0;
 	return 0;
 }
 

@@ -42,49 +42,50 @@
      NAME = 258,
      STRING = 259,
      NUMBER = 260,
-     CHAR = 261,
-     VARCHAR = 262,
-     LONG = 263,
-     FLOAT = 264,
-     DOUBLE = 265,
-     COMPARISON = 266,
-     PATH = 267,
-     AND = 268,
-     SELECT = 269,
-     FROM = 270,
-     WHERE = 271,
-     ORDER = 272,
-     BY = 273,
-     ASC = 274,
-     DESC = 275,
-     ALL = 276,
-     UNIQUE = 277,
-     DISTINCT = 278,
-     CREATE = 279,
-     TABLE = 280,
-     DROP = 281,
-     LOAD = 282,
-     INSERT = 283,
-     INTO = 284,
-     VALUES = 285,
-     DELETE = 286,
-     CHARACTER = 287,
-     INTEGER = 288,
-     DATE = 289,
-     SHOW = 290,
-     TABLES = 291,
-     EXIT = 292,
-     DATA = 293,
-     HASH = 294,
-     BPT = 295,
-     HELP = 296,
-     ON = 297,
-     PRIMARY = 298,
-     KEY = 299,
-     UPDATE = 300,
-     SET = 301,
-     DESCRIBE = 302,
-     ADMIN = 303
+     FLOATNUMBER = 261,
+     CHAR = 262,
+     VARCHAR = 263,
+     LONG = 264,
+     FLOAT = 265,
+     DOUBLE = 266,
+     COMPARISON = 267,
+     PATH = 268,
+     AND = 269,
+     SELECT = 270,
+     FROM = 271,
+     WHERE = 272,
+     ORDER = 273,
+     BY = 274,
+     ASC = 275,
+     DESC = 276,
+     ALL = 277,
+     UNIQUE = 278,
+     DISTINCT = 279,
+     CREATE = 280,
+     TABLE = 281,
+     DROP = 282,
+     LOAD = 283,
+     INSERT = 284,
+     INTO = 285,
+     VALUES = 286,
+     DELETE = 287,
+     CHARACTER = 288,
+     INTEGER = 289,
+     DATE = 290,
+     SHOW = 291,
+     TABLES = 292,
+     EXIT = 293,
+     DATA = 294,
+     HASH = 295,
+     BPT = 296,
+     HELP = 297,
+     ON = 298,
+     PRIMARY = 299,
+     KEY = 300,
+     UPDATE = 301,
+     SET = 302,
+     DESCRIBE = 303,
+     ADMIN = 304
    };
 #endif
 
@@ -95,7 +96,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 56 "exp4.y"
+#line 59 "exp4.y"
 
 	int intval;
 	char *strval;
@@ -103,7 +104,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 107 "exp4.tab.h"
+#line 108 "exp4.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
